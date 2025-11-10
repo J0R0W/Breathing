@@ -1,0 +1,20 @@
+site_name: RRest
+repo_url: https://github.com/peterhcharlton/RRest
+
+nav:
+    - 'Home': 'index.md'
+    - 'Toolbox':
+      - 'Getting Started': './toolbox/getting_started.md'
+      - 'RR Algorithms': './toolbox/rr_algorithms.md'
+      - 'Results Files': './toolbox/results_files.md'
+    - 'Datasets':
+      - 'Summary': './datasets/summary.md'
+      - 'Synthetic': './datasets/synthetic.md'
+      - 'Vortal': './datasets/vortal.md'
+      - 'BIDMC': './datasets/bidmc.md'
+      - 'MIMIC': './datasets/mimic.md'
+      - 'CapnoBase': './datasets/capnobase.md'
+    - 'Resources':
+      - 'Summary': './resources/summary.md'
+      - 'Performance Assessment': './resources/performance_assessment.md'
+    
