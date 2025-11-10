@@ -1,68 +1,162 @@
 # Examples Directory
 
-This directory contains example implementations to help you get started with respiratory rate detection.
+This directory contains practical examples demonstrating respiratory rate detection using various methods.
 
-## Quick Start Examples
+## Quick Start
 
-### 1. Basic Optical Flow Example
-**File**: `optical_flow_basic.py` (to be implemented)
-**Description**: Simple optical flow + FFT implementation
-**Difficulty**: Beginner
-**Time to run**: ~5 minutes to implement
+### Installation
 
-### 2. Automatic ROI Detection
-**File**: `pose_detection_roi.py` (to be implemented)
-**Description**: MediaPipe-based automatic chest ROI detection
-**Difficulty**: Intermediate
-**Time to run**: ~10 minutes to implement
-
-### 3. Complete Monitoring System
-**File**: `complete_monitor.py` (to be implemented)
-**Description**: Full system with tracking and visualization
-**Difficulty**: Advanced
-**Time to run**: ~30 minutes to implement
-
-## Coming Soon
-
-The following examples will be implemented in the next phase:
-- Eulerian video magnification demo
-- Deep learning-based segmentation
-- Multi-method ensemble
-- Real-time webcam monitoring
-- Batch video processing
-- API server example
-
-## Usage
-
-Each example is self-contained and can be run independently:
+First, install dependencies:
 
 ```bash
-# Install dependencies first
-pip install -r ../requirements.txt
-
-# Run basic example
-python optical_flow_basic.py --video path/to/video.mp4
-
-# Run with webcam
-python complete_monitor.py --source 0
+cd /path/to/Breathing
+pip install -r requirements.txt
 ```
 
-## Test Videos
+### Running Examples
 
-You can test with:
-1. Your own videos showing clear chest movement
-2. Webcam feed (for real-time testing)
-3. Public datasets (see /research/REFERENCES.md)
+All examples can be run from the `examples/` directory:
 
-## Expected Performance
+```bash
+cd examples
+python 01_basic_optical_flow.py --webcam
+```
 
-- **Optical Flow Basic**: 85-90% accuracy, 30 fps
-- **Pose Detection ROI**: 90-93% accuracy, 20-30 fps
-- **Complete Monitor**: 90-95% accuracy, 25-30 fps
+---
+
+## Example 1: Basic Optical Flow
+
+**File**: `01_basic_optical_flow.py`
+
+**Description**: Simplest approach using dense optical flow and FFT analysis. Manual ROI selection.
+
+**Usage**:
+```bash
+# Webcam
+python 01_basic_optical_flow.py --webcam
+
+# Video file
+python 01_basic_optical_flow.py --video path/to/video.mp4
+```
+
+**Features**: Manual ROI, dense optical flow, Butterworth filtering, FFT estimation
+
+**Accuracy**: 85-90%
+
+---
+
+## Example 2: Pose-Based Detection
+
+**File**: `02_pose_based_detection.py`
+
+**Description**: Automatic chest ROI detection using MediaPipe.
+
+**Usage**:
+```bash
+# Webcam
+python 02_pose_based_detection.py --webcam
+
+# Video file
+python 02_pose_based_detection.py --video video.mp4
+```
+
+**Features**: Automatic ROI detection, MediaPipe pose, adaptive tracking
+
+**Requirements**: `pip install mediapipe`
+
+**Accuracy**: 90-95%
+
+---
+
+## Example 3: Complete Monitor
+
+**File**: `03_complete_monitor.py`
+
+**Description**: Full-featured system with enhanced visualization and statistics.
+
+**Usage**:
+```bash
+# Webcam with enhanced display
+python 03_complete_monitor.py --webcam
+
+# Video with manual ROI
+python 03_complete_monitor.py --video video.mp4 --detect manual
+```
+
+**Features**: Enhanced visualization, rate history, session statistics, pause/resume
+
+**Controls**: Q (quit), R (reset), SPACE (pause)
+
+**Accuracy**: 90-95%
+
+---
+
+## Example 4: Batch Processing
+
+**File**: `04_batch_processing.py`
+
+**Description**: Process multiple videos and export to CSV.
+
+**Usage**:
+```bash
+# Process directory
+python 04_batch_processing.py --directory videos/ --output results.csv
+
+# Specific files
+python 04_batch_processing.py --files video1.mp4 video2.mp4 --output results.csv
+```
+
+**Features**: Batch processing, CSV export, progress tracking, error handling
+
+---
+
+## Common Options
+
+All examples support:
+- `--video PATH`: Video file path
+- `--webcam`: Use webcam
+- `--detect {manual,pose}`: ROI detection method
+- `--motion {dense,sparse}`: Motion extraction method
+- `--window SECONDS`: Analysis window size
+
+---
+
+## Performance Tips
+
+### Best Accuracy:
+- Use pose-based detection
+- Dense optical flow
+- 45-60 second window
+- Stable positioning
+- Good lighting
+
+### Best Speed:
+- Manual ROI
+- Sparse optical flow
+- 20-30 second window
+
+---
+
+## Troubleshooting
+
+**MediaPipe not found**: `pip install mediapipe`
+
+**Low accuracy**:
+- Check lighting
+- Reduce movement
+- Verify ROI placement
+- Use tight-fitting clothing
+
+**Webcam issues**:
+- Try different camera ID
+- Check permissions
+- Close other camera apps
+
+---
 
 ## Need Help?
 
-Refer to:
-- `/docs/IMPLEMENTATION_GUIDE.md` for detailed guidance
-- `/docs/ALGORITHMS.md` for algorithm details
-- `/research/REFERENCES.md` for academic papers
+See:
+- `/docs/IMPLEMENTATION_GUIDE.md` - Step-by-step implementation
+- `/docs/ALGORITHMS.md` - Algorithm details
+- `/research/REFERENCES.md` - Research papers
