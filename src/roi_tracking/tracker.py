@@ -10,6 +10,62 @@ import numpy as np
 from typing import Optional, Tuple
 
 
+def _create_tracker_kcf():
+    """Create KCF tracker with OpenCV version compatibility."""
+    try:
+        # Try new API (OpenCV 4.5.1+)
+        return cv2.legacy.TrackerKCF_create()
+    except AttributeError:
+        try:
+            # Try old API (OpenCV < 4.5.1)
+            return cv2.TrackerKCF_create()
+        except AttributeError:
+            # Try static method API (OpenCV 4.8+)
+            return cv2.TrackerKCF.create()
+
+
+def _create_tracker_csrt():
+    """Create CSRT tracker with OpenCV version compatibility."""
+    try:
+        # Try new API (OpenCV 4.5.1+)
+        return cv2.legacy.TrackerCSRT_create()
+    except AttributeError:
+        try:
+            # Try old API (OpenCV < 4.5.1)
+            return cv2.TrackerCSRT_create()
+        except AttributeError:
+            # Try static method API (OpenCV 4.8+)
+            return cv2.TrackerCSRT.create()
+
+
+def _create_tracker_mosse():
+    """Create MOSSE tracker with OpenCV version compatibility."""
+    try:
+        # Try legacy API (most common for MOSSE)
+        return cv2.legacy.TrackerMOSSE_create()
+    except AttributeError:
+        try:
+            # Try old API
+            return cv2.TrackerMOSSE_create()
+        except AttributeError:
+            # Try static method API
+            return cv2.TrackerMOSSE.create()
+
+
+def _create_tracker_medianflow():
+    """Create MedianFlow tracker with OpenCV version compatibility."""
+    try:
+        # Try legacy API (most common for MedianFlow)
+        return cv2.legacy.TrackerMedianFlow_create()
+    except AttributeError:
+        try:
+            # Try old API
+            return cv2.TrackerMedianFlow_create()
+        except AttributeError:
+            # Try static method API
+            return cv2.TrackerMedianFlow.create()
+
+
 class ROITracker:
     """
     ROI tracker using OpenCV's object tracking algorithms.
@@ -36,10 +92,10 @@ class ROITracker:
     """
 
     TRACKER_TYPES = {
-        'KCF': cv2.TrackerKCF_create,
-        'CSRT': cv2.TrackerCSRT_create,
-        'MOSSE': cv2.legacy.TrackerMOSSE_create,
-        'MedianFlow': cv2.legacy.TrackerMedianFlow_create,
+        'KCF': _create_tracker_kcf,
+        'CSRT': _create_tracker_csrt,
+        'MOSSE': _create_tracker_mosse,
+        'MedianFlow': _create_tracker_medianflow,
     }
 
     def __init__(self, tracker_type: str = 'KCF'):
